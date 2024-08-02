@@ -1,6 +1,6 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+// import TheWelcome from './components/TheWelcome.vue'
 import MyName from './components/MyName.vue'
 import JSONLab from './components/JSON.vue'
 </script>
@@ -16,7 +16,6 @@ import JSONLab from './components/JSON.vue'
 
   <main>
     <JSONLab />
-    <MyName />
   </main>
 </template>
 
