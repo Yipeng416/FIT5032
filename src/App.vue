@@ -3,10 +3,11 @@ import HelloWorld from './components/HelloWorld.vue'
 // import TheWelcome from './components/TheWelcome.vue'
 import MyName from './components/MyName.vue'
 import JSONLab from './components/JSON.vue'
+import Form from './components/Form.vue'
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
@@ -16,7 +17,8 @@ import JSONLab from './components/JSON.vue'
 
   <main>
     <JSONLab />
-  </main>
+  </main> -->
+  <Form></Form>
 </template>
 
 <style scoped>
