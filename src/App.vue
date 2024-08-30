@@ -1,51 +1,31 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-// import TheWelcome from './components/TheWelcome.vue'
-import MyName from './components/MyName.vue'
-import JSONLab from './components/JSON.vue'
-import Form from './components/Form.vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import BHeader from './components/BHeader.vue'
+
+const isAuthenticated = ref(localStorage.getItem('isAuthenticated') === 'true')
+const router = useRouter()
+
+const logout = () => {
+  localStorage.removeItem('isAuthenticated')
+  isAuthenticated.value = false
+  router.push('/login')
+}
 </script>
 
 <template>
-  <!-- <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+  <header>
+    <BHeader />
   </header>
 
+  <nav>
+    <router-link to="/">Home</router-link>
+    <router-link v-if="isAuthenticated" to="/about">About</router-link>
+    <router-link v-else to="/login">Login</router-link>
+    <button v-if="isAuthenticated" @click="logout">Logout</button>
+  </nav>
+
   <main>
-    <JSONLab />
-  </main> -->
-  <Form></Form>
+    <router-view />
+  </main>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
