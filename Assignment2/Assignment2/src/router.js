@@ -4,6 +4,8 @@ import AboutUs from './components/Web/AboutUs.vue'
 import ContactUs from './components/Web/ContactUs.vue'
 import Login from './components/Authentic/Login.vue'
 import SignUp from './components/Authentic/SignUp.vue'
+import UserList from './components/UserList.vue'
+import Profile from './components/Profile.vue'
 
 const routes = [
   {
@@ -30,7 +32,9 @@ const routes = [
     path: '/auth/signup',
     name: 'signup',
     component: SignUp
-  }
+  },
+  { path: '/users', name: 'users', component: UserList },
+  { path: '/profile', name: 'Profile', component: Profile }
 ]
 
 const router = createRouter({

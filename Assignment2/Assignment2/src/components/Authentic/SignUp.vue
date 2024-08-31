@@ -54,7 +54,16 @@ const handleSubmit = () => {
     return
   }
 
-  // 如果验证通过，执行提交逻辑
+  // 获取当前存储的用户信息
+  let users = JSON.parse(localStorage.getItem('users')) || []
+
+  // 将新用户添加到用户列表中，角色固定为普通用户
+  users.push({ email: email.value, password: password.value, role: 'user' })
+
+  // 将更新后的用户列表存储到本地存储中
+  localStorage.setItem('users', JSON.stringify(users))
+
+  // 提示用户注册成功
   alert('Sign up successful!')
 }
 
