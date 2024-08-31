@@ -1,11 +1,15 @@
 <script setup>
 // import HelloWorld from './components/HelloWorld.vue'
 // import TheWelcome from './components/TheWelcome.vue'
-import Home from './components/Home.vue'
+// import Home from './components/HomeView.vue'
+import NavigationBar from './components/NavigationBar.vue'
+import Footer from './components/Footer.vue'
 </script>
 
 <template>
-  <Home />
+  <NavigationBar />
+  <router-view></router-view>
+  <Footer />
   <!-- <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
