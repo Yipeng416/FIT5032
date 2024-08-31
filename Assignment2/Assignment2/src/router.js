@@ -6,6 +6,7 @@ import Login from './components/Authentic/Login.vue'
 import SignUp from './components/Authentic/SignUp.vue'
 import UserList from './components/UserList.vue'
 import Profile from './components/Profile.vue'
+import FeedbackView from './components/FeedbackView.vue'
 
 const routes = [
   {
@@ -34,7 +35,8 @@ const routes = [
     component: SignUp
   },
   { path: '/users', name: 'users', component: UserList },
-  { path: '/profile', name: 'Profile', component: Profile }
+  { path: '/profile', name: 'Profile', component: Profile },
+  { path: '/feedback', name: 'feedback', component: FeedbackView }
 ]
 
 const router = createRouter({

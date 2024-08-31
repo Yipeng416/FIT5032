@@ -24,6 +24,9 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/Web/contact_us">Contact Us</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/feedback">Feedback</router-link>
+          </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li v-if="isLoggedIn" class="nav-item dropdown">

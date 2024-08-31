@@ -1,39 +1,40 @@
 <template>
-  <div class="rating">
-    <span
-      v-for="star in 5"
-      :key="star"
-      @click="setRating(star)"
-      :class="{ filled: star <= currentRating }"
+  <div class="rating-buttons">
+    <button
+      v-for="score in 6"
+      :key="score"
+      @click="setRating(score - 1)"
+      :class="{ selected: score - 1 === currentRating }"
     >
-      ★
-    </span>
+      {{ score - 1 }}
+    </button>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const currentRating = ref(0)
-const rating = ref(0)
 
-const setRating = (star) => {
-  currentRating.value = star
-  rating.value = star
+const setRating = (rating) => {
+  currentRating.value = rating
+  emit('update:rating', currentRating.value)
 }
-
-// Watch the rating to emit it to parent
-watch(rating, (newRating) => {
-  emit('update:rating', newRating)
-})
 </script>
 
 <style scoped>
-.rating span {
-  font-size: 2rem;
+.rating-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
   cursor: pointer;
 }
-.filled {
-  color: gold;
+
+.selected {
+  background-color: gold;
+  color: white;
 }
 </style>
