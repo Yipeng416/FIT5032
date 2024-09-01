@@ -81,6 +81,4 @@ const logout = () => {
 }
 </script>
 
-<style scoped>
-/* Add any additional styles if necessary */
-</style>
+<style scoped></style>

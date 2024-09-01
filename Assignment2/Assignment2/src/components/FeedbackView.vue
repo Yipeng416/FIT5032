@@ -28,6 +28,4 @@ const averageRating = computed(() => {
 })
 </script>
 
-<style scoped>
-/* 样式保持不变 */
-</style>
+<style scoped></style>

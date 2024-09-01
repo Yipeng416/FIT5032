@@ -12,7 +12,7 @@ const commentText = ref('')
 
 const submitComment = () => {
   emit('submit-comment', commentText.value)
-  commentText.value = '' // clear the textarea
+  commentText.value = '' // clear the text area
 }
 </script>
 

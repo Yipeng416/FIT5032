@@ -54,16 +54,16 @@ const handleSubmit = () => {
     return
   }
 
-  // 获取当前存储的用户信息
+  // get user information
   let users = JSON.parse(localStorage.getItem('users')) || []
 
-  // 将新用户添加到用户列表中，角色固定为普通用户
+  // new users to list
   users.push({ email: email.value, password: password.value, role: 'user' })
 
-  // 将更新后的用户列表存储到本地存储中
+  // storage
   localStorage.setItem('users', JSON.stringify(users))
 
-  // 提示用户注册成功
+  // inform success
   alert('Sign up successful!')
 }
 

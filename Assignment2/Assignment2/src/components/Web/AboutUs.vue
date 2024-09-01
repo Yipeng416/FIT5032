@@ -3,7 +3,7 @@
     <h1>About Our Organization</h1>
     <p>We are dedicated to improving the lives of migrant communities...</p>
 
-    <!-- 如果用户已登录，显示评论和评分功能 -->
+    <!-- after logining in show rating -->
     <div v-if="isLoggedIn" class="rating-comment-section">
       <h2>Leave a Rating</h2>
       <div class="rating-buttons">
@@ -22,7 +22,7 @@
       <button class="submit-button" @click="submitComment">Submit</button>
     </div>
 
-    <!-- 显示所有评论和平均评分 -->
+    <!-- show comments and rating -->
     <h2>All Comments</h2>
     <ul>
       <li v-for="comment in comments" :key="comment.text">
@@ -31,7 +31,7 @@
       </li>
     </ul>
 
-    <!-- 显示平均评分 -->
+    <!-- show average -->
     <h3 v-if="averageRating !== null">Average Rating: {{ averageRating }} / 5</h3>
   </div>
 </template>
@@ -39,7 +39,7 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 
-const comments = ref([]) // 初始化空评论数组
+const comments = ref([]) // renew comments
 const newComment = ref('')
 const currentRating = ref(0)
 
@@ -61,7 +61,7 @@ const submitComment = () => {
       rating: currentRating.value
     })
     newComment.value = ''
-    currentRating.value = 0 // 提交后重置评分
+    currentRating.value = 0 // submit and renew rating
   }
 }
 
@@ -71,7 +71,7 @@ const averageRating = computed(() => {
   return (total / comments.value.length).toFixed(1)
 })
 
-// 加载之前存储的评论
+// load former comments
 onMounted(() => {
   const storedComments = JSON.parse(localStorage.getItem('comments'))
   if (storedComments) {
@@ -79,7 +79,7 @@ onMounted(() => {
   }
 })
 
-// 监听评论的变化并更新到localStorage
+// get comments and put in localStorage
 watch(
   comments,
   (newComments) => {

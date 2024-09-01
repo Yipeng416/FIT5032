@@ -44,20 +44,20 @@ const password = ref('')
 const loginError = ref('')
 const router = useRouter()
 
-// 硬编码管理员账号信息
+// hard code
 const adminEmail = '123456@gmail.com'
 const adminPassword = '123456'
 
 const handleLogin = () => {
   loginError.value = ''
 
-  // 检查是否是管理员登录
+  // check if admin
   if (email.value === adminEmail && password.value === adminPassword) {
-    // 管理员登录，存储用户信息并跳转到 UserList 页面
+    // admin login, go to  UserList
     localStorage.setItem('currentUser', JSON.stringify({ email: adminEmail, role: 'admin' }))
     router.push('/users')
   } else {
-    // 普通用户登录逻辑
+    // common users
     const users = JSON.parse(localStorage.getItem('users')) || []
 
     const user = users.find(
@@ -65,7 +65,7 @@ const handleLogin = () => {
     )
 
     if (user) {
-      // 普通用户登录成功，存储用户信息并跳转到主页
+      // common users to home page
       localStorage.setItem('currentUser', JSON.stringify({ email: user.email, role: 'user' }))
       router.push('/')
     } else {
