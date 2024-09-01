@@ -3,7 +3,10 @@
     <div class="card-header">Health</div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
-        <p>Health service for immigrations</p>
+        <p>
+          After logging in, there is no user displayed in the upper right corner. Please refresh the
+          page
+        </p>
         <footer class="blockquote-footer">
           Helping every immigrant <cite title="Achieve health">Achieve health</cite>
         </footer>
