@@ -1,81 +1,80 @@
 <template>
-  <div class="container mt-5">
-    <h2>Sign Up</h2>
-    <form @submit.prevent="handleSubmit">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="name@example.com"
-          v-model="email"
-          required
-        />
-        <label for="email">Email address</label>
-        <div v-if="emailError" class="text-danger">{{ emailError }}</div>
+  <div class="register">
+    <h2>Firebase register</h2>
+    <form @submit.prevent="register">
+      <div>
+        <label for="email">Email:</label>
+        <input type="email" v-model="email" id="email" required @blur="validateEmail" />
+        <p v-if="emailError" class="error">{{ emailError }}</p>
       </div>
-      <div class="form-floating mb-3">
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="Password"
-          v-model="password"
-          required
-          minlength="6"
-        />
-        <label for="password">Password</label>
-        <div v-if="passwordError" class="text-danger">{{ passwordError }}</div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" v-model="password" id="password" required @blur="validatePassword" />
+        <p v-if="passwordError" class="error">{{ passwordError }}</p>
       </div>
-      <button class="btn btn-primary" type="submit">Sign Up</button>
+      <button type="submit" :disabled="isFormInvalid">Register</button>
     </form>
+    <p v-if="error">{{ error }}</p>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
+const error = ref('')
 const emailError = ref('')
 const passwordError = ref('')
+const isFormInvalid = ref(true)
+const router = useRouter()
 
-const handleSubmit = () => {
-  emailError.value = ''
-  passwordError.value = ''
-
-  if (!validateEmail(email.value)) {
-    emailError.value = 'Invalid email format'
-    return
+// 简单的邮箱格式验证
+const validateEmail = () => {
+  const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+  if (!emailPattern.test(email.value)) {
+    emailError.value = 'Please enter a valid email address'
+  } else {
+    emailError.value = ''
   }
-
-  if (password.value.length < 6) {
-    passwordError.value = 'Password must be at least 6 characters'
-    return
-  }
-
-  // get user information
-  let users = JSON.parse(localStorage.getItem('users')) || []
-
-  // new users to list
-  users.push({ email: email.value, password: password.value, role: 'user' })
-
-  // storage
-  localStorage.setItem('users', JSON.stringify(users))
-
-  // inform success
-  alert('Sign up successful!')
+  validateForm()
 }
 
-const validateEmail = (email) => {
-  const re = /\S+@\S+\.\S+/
-  return re.test(email)
+// 简单的密码验证：长度至少为 6
+const validatePassword = () => {
+  if (password.value.length < 6) {
+    passwordError.value = 'The password length must be at least 6 characters'
+  } else {
+    passwordError.value = ''
+  }
+  validateForm()
+}
+
+// 确保表单验证通过后再提交
+const validateForm = () => {
+  isFormInvalid.value = emailError.value || passwordError.value || !email.value || !password.value
+}
+
+const register = () => {
+  if (!emailError.value && !passwordError.value) {
+    const auth = getAuth()
+    createUserWithEmailAndPassword(auth, email.value, password.value)
+      .then(() => {
+        console.log('Firebase register successfully')
+        router.push('/Home') // 注册成功后跳转到 Home 页面
+      })
+      .catch((err) => {
+        error.value = 'register fail: ' + err.message
+      })
+  }
 }
 </script>
 
 <style scoped>
-.container {
-  max-width: 500px;
-  margin: auto;
+.error {
+  color: red;
+  font-size: 0.875rem;
 }
 </style>

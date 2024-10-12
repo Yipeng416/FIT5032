@@ -61,24 +61,38 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { onAuthStateChanged, signOut } from 'firebase/auth' // 引入 Firebase 身份验证
+import { auth } from '@/firebase' // 引入 Firebase 配置文件
 
 const router = useRouter()
 const isLoggedIn = ref(false)
 const currentUser = ref({ email: '', role: '' })
 
 onMounted(() => {
-  const user = JSON.parse(localStorage.getItem('currentUser'))
-  if (user) {
-    currentUser.value = user
-    isLoggedIn.value = true
-  }
+  // 使用 Firebase 监听认证状态变化
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser.value = { email: user.email }
+      isLoggedIn.value = true
+    } else {
+      isLoggedIn.value = false
+      currentUser.value = { email: '', role: '' }
+    }
+  })
 })
 
-const logout = () => {
-  localStorage.removeItem('currentUser')
-  isLoggedIn.value = false
-  router.push('/')
+// 登出功能
+const logout = async () => {
+  try {
+    await signOut(auth)
+    isLoggedIn.value = false
+    router.push('/')
+  } catch (error) {
+    console.error('Sign out error:', error)
+  }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+/* 你可以在这里添加样式 */
+</style>

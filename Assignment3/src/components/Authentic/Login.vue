@@ -1,83 +1,37 @@
 <template>
-  <div class="container mt-5">
-    <h2>Login</h2>
-    <form @submit.prevent="handleLogin">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          placeholder="name@example.com"
-          v-model="email"
-          required
-        />
-        <label for="email">Email address</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          placeholder="Password"
-          v-model="password"
-          required
-        />
-        <label for="password">Password</label>
-      </div>
-      <button class="btn btn-primary" type="submit">Login</button>
-      <div v-if="loginError" class="text-danger mt-3">{{ loginError }}</div>
+  <div class="login">
+    <h1>Login</h1>
+    <form @submit.prevent="loginUser">
+      <input v-model="email" type="email" placeholder="email" required />
+      <input v-model="password" type="password" placeholder="password" required />
+      <button type="submit">Login</button>
     </form>
-    <hr />
-    <div class="admin-login">
-      <h4>Admin Login</h4>
-      <p>Use the credentials: email: 123456@gmail.com, password: 123456</p>
-    </div>
+    <p>{{ error }}</p>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { auth } from '@/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 const email = ref('')
 const password = ref('')
-const loginError = ref('')
-const router = useRouter()
+const error = ref('')
 
-// hard code
-const adminEmail = '123456@gmail.com'
-const adminPassword = '123456'
-
-const handleLogin = () => {
-  loginError.value = ''
-
-  // check if admin
-  if (email.value === adminEmail && password.value === adminPassword) {
-    // admin login, go to  UserList
-    localStorage.setItem('currentUser', JSON.stringify({ email: adminEmail, role: 'admin' }))
-    router.push('/users')
-  } else {
-    // common users
-    const users = JSON.parse(localStorage.getItem('users')) || []
-
-    const user = users.find(
-      (user) => user.email === email.value && user.password === password.value
-    )
-
-    if (user) {
-      // common users to home page
-      localStorage.setItem('currentUser', JSON.stringify({ email: user.email, role: 'user' }))
-      router.push('/')
-    } else {
-      loginError.value = 'Invalid credentials'
-    }
+const loginUser = async () => {
+  try {
+    await signInWithEmailAndPassword(auth, email.value, password.value)
+    error.value = 'Login successfully!'
+    // 登录成功后跳转到主页或个人页面
+  } catch (err) {
+    error.value = 'False:' + err.message
   }
 }
 </script>
 
 <style scoped>
-.container {
-  max-width: 500px;
-  margin: auto;
+.login {
+  text-align: center;
 }
 </style>
