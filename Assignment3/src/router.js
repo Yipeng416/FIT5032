@@ -20,7 +20,7 @@ const routes = [
     component: AboutUs
   },
   {
-    path: '/Web/Contact_us',
+    path: '/Web/ContactUs',
     name: 'Contact_us',
     component: ContactUs
   },
