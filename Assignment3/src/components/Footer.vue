@@ -4,8 +4,7 @@
     <div class="card-body">
       <blockquote class="blockquote mb-0">
         <p>
-          After logging in, there is no user displayed in the upper right corner. Please refresh the
-          page
+          Health
         </p>
         <footer class="blockquote-footer">
           Helping every immigrant <cite title="Achieve health">Achieve health</cite>

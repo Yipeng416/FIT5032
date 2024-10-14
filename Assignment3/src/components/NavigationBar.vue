@@ -27,6 +27,13 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/feedback">Feedback</router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/datatable">Data Table</router-link> 
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/map">Map</router-link>
+
+          </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li v-if="isLoggedIn" class="nav-item dropdown">
@@ -61,15 +68,14 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { onAuthStateChanged, signOut } from 'firebase/auth' // 引入 Firebase 身份验证
-import { auth } from '@/firebase' // 引入 Firebase 配置文件
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { auth } from '@/firebase'
 
 const router = useRouter()
 const isLoggedIn = ref(false)
 const currentUser = ref({ email: '', role: '' })
 
 onMounted(() => {
-  // 使用 Firebase 监听认证状态变化
   onAuthStateChanged(auth, (user) => {
     if (user) {
       currentUser.value = { email: user.email }
@@ -81,7 +87,6 @@ onMounted(() => {
   })
 })
 
-// 登出功能
 const logout = async () => {
   try {
     await signOut(auth)
