@@ -29,7 +29,7 @@
         searchQuery: '',
         startLocation: '',
         endLocation: '',
-        mapboxAccessToken: 'pk.eyJ1IjoiYXV5aXBlbmciLCJhIjoiY20yOW52dW5iMDdrajJscHR6M2FmMGdobCJ9.uHUVWDdchlEnCjBHBrE0Tg', // 替换为你的Mapbox Access Token
+        mapboxAccessToken: 'pk.eyJ1IjoiYXV5aXBlbmciLCJhIjoiY20yOW52dW5iMDdrajJscHR6M2FmMGdobCJ9.uHUVWDdchlEnCjBHBrE0Tg', 
       };
     },
     mounted() {
@@ -109,18 +109,19 @@
   .controls {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin: 10px 0;
+    gap: 20px; 
+    margin: 20px 0;
   }
   
   .search-section, .route-section {
     display: flex;
-    gap: 10px;
+    gap: 15px; 
+    justify-content: center; 
   }
   
   .search-input, .location-input {
     padding: 10px;
-    width: 200px; /* 调整搜索框的宽度 */
+    width: 250px; 
     border: 1px solid #ccc;
   }
   
@@ -133,7 +134,7 @@
   }
   
   .search-btn {
-    width: 100px; /* 调整按钮的宽度 */
+    width: 100px;
   }
   
   .route-btn {

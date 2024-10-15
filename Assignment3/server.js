@@ -6,18 +6,18 @@ import bodyParser from 'body-parser';
 import process from 'process';
 
 
-// 替换为你的 Mailgun 域名和 API Key
+
 const DOMAIN = 'sandbox57739761967546b6b7c44c673bbcde81.mailgun.org';
 const mailgun = new Mailgun(formData);
 const mgClient = mailgun.client({
   username: 'api',
-  key: 'a06a57126389adf4e66a242dc72320fd-d010bdaf-d6e2ec77', // 替换为你的 API Key
+  key: 'a06a57126389adf4e66a242dc72320fd-d010bdaf-d6e2ec77', 
 });
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// 启用中间件
+
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
